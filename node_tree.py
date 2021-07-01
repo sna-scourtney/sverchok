@@ -279,6 +279,7 @@ class UpdateNodes:
         sv_settings = bpy.context.preferences.addons[sverchok.__name__].preferences
         exception_color = sv_settings.exception_color
         no_data_color = sv_settings.no_data_color
+        dynamic_xy = sv_settings.dynamic_drawtext_xy
         error_pref = "error"
         update_pref = "update_time"
         node_id = node_id or self.node_id  # inevitable evil
@@ -295,7 +296,7 @@ class UpdateNodes:
         # show update timing
         if update_time is not None:
             update_time = int(update_time * 1000)
-            sv_bgl.draw_text(self, f'{update_time}ms', update_pref + node_id, align="UP", dynamic_location=False)
+            sv_bgl.draw_text(self, f'{update_time}ms', update_pref + node_id, align="UP", dynamic_location=dynamic_xy)
         else:
             sv_bgl.callback_disable(update_pref + node_id)
 

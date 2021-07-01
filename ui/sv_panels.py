@@ -87,6 +87,8 @@ class SV_PT_TreeTimingsPanel(SverchokPanels, bpy.types.Panel):
         row = self.layout.row()
         row.use_property_split = True
         row.prop(tree, 'show_time_mode', text="Update time", expand=True)
+        sv_settings = bpy.context.preferences.addons[sverchok.__name__].preferences
+        row.prop(sv_settings, "dynamic_drawtext_xy", text="update timing locations")
 
 
 class SV_PT_ExtrTreeUserInterfaceOptions(SverchokPanels, bpy.types.Panel):

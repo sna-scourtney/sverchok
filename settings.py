@@ -339,6 +339,8 @@ class SverchokPreferences(AddonPreferences):
 
     ##  BLF/BGL/GPU  scale and location props
 
+    dynamic_drawtext_xy: BoolProperty(default=True, description='force drawtext to stick to node location')
+
     render_scale: FloatProperty(
         default=1.0, min=0.01, step=0.01, description='default render scale')
 

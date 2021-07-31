@@ -23,7 +23,7 @@ from bpy.props import IntProperty, FloatProperty, FloatVectorProperty
 
 from sverchok.node_tree import SverchCustomTreeNode
 from sverchok.data_structure import updateNode, fullList
-
+from sverchok.dependencies import numba
 
 #
 # round_cube function taken from:
@@ -338,6 +338,11 @@ def round_cube(radius=1.0, arcdiv=4, lindiv=0., size=(0., 0., 0.), div_type=0, o
             hemi -= 1
 
     return verts, faces
+
+
+# if numba is not None:
+#    print("numba.njit wrapped box_rounded node's `round_cube` function")
+#    numba.njit(round_cube, parallel=True)
 
 
 class SvBoxRoundedNode(bpy.types.Node, SverchCustomTreeNode):

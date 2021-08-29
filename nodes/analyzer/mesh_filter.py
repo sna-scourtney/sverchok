@@ -293,11 +293,14 @@ class SvMeshFilterNode(bpy.types.Node, SverchCustomTreeNode):
 
         meshes = match_long_repeat([vertices_s, edges_s, faces_s])
         for vertices, edges, faces in zip(*meshes):
-            bm = bmesh_from_pydata(vertices, edges, faces)
-            bm.normal_update()
-            outs = cls.process(bm, self.submode, edges)
-            results.append(outs)
-
+            if self.implementation == "numba":
+                outs = cls.process_numba(vertices, edges, faces, self.submode)
+            else:
+                bm = bmesh_from_pydata(vertices, edges, faces)
+                bm.normal_update()
+                outs = cls.process(bm, self.submode, edges)
+        
+        results.append(outs)
         results = zip(*results)
         for (ocls,oname), result in zip(cls.outputs, results):
             if self.outputs[oname].is_linked:
